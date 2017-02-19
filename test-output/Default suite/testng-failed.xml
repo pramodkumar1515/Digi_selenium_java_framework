@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="com.digi.selenium.app.DashBoard.Dashboard_Prepaid">
+        <methods>
+          <include name="initDriver"/>
+          <include name="verifyVoiceGraphData"/>
+          <include name="verifyInternetGraphValues"/>
+          <include name="verifyInternetDonutValues"/>
+          <include name="verifyVoiceDonutValues"/>
+          <include name="verifySMSGraphData"/>
+          <include name="verifySMSDonutValues"/>
+        </methods>
+      </class> <!-- com.digi.selenium.app.DashBoard.Dashboard_Prepaid -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

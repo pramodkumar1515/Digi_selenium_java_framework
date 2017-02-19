@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="6" failed="0" total="6" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="21449" started-at="2017-02-19T12:05:20Z" finished-at="2017-02-19T12:05:42Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="21449" started-at="2017-02-19T12:05:20Z" finished-at="2017-02-19T12:05:42Z">
+      <class name="com.digi.selenium.app.DashBoard.Dashboard_Prepaid">
+        <test-method status="FAIL" signature="initDriver()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="initDriver" is-config="true" duration-ms="0" started-at="2017-02-19T17:35:20Z" finished-at="2017-02-19T17:35:20Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+	at com.digi.selenium.util.common.PageNavigation.signInWithMSSIDN_stage(PageNavigation.java:947)
+	at com.digi.selenium.util.DashBoard.Dashboard_Prepaid_Util.setUp(Dashboard_Prepaid_Util.java:52)
+	at com.digi.selenium.app.DashBoard.Dashboard_Prepaid.initDriver(Dashboard_Prepaid.java:36)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
+	at org.testng.internal.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:175)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:107)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:207)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initDriver -->
+        <test-method status="SKIP" signature="verifyInternetDonutValues()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="verifyInternetDonutValues" duration-ms="3" started-at="2017-02-19T17:35:42Z" finished-at="2017-02-19T17:35:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyInternetDonutValues -->
+        <test-method status="SKIP" signature="verifyInternetGraphValues()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="verifyInternetGraphValues" duration-ms="1" started-at="2017-02-19T17:35:42Z" finished-at="2017-02-19T17:35:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyInternetGraphValues -->
+        <test-method status="SKIP" signature="verifySMSDonutValues()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="verifySMSDonutValues" duration-ms="0" started-at="2017-02-19T17:35:42Z" finished-at="2017-02-19T17:35:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySMSDonutValues -->
+        <test-method status="SKIP" signature="verifySMSGraphData()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="verifySMSGraphData" duration-ms="1" started-at="2017-02-19T17:35:42Z" finished-at="2017-02-19T17:35:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySMSGraphData -->
+        <test-method status="SKIP" signature="verifyVoiceDonutValues()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="verifyVoiceDonutValues" duration-ms="1" started-at="2017-02-19T17:35:42Z" finished-at="2017-02-19T17:35:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyVoiceDonutValues -->
+        <test-method status="SKIP" signature="verifyVoiceGraphData()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="verifyVoiceGraphData" duration-ms="3" started-at="2017-02-19T17:35:42Z" finished-at="2017-02-19T17:35:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyVoiceGraphData -->
+        <test-method status="SKIP" signature="terminateBrowser()[pri:0, instance:com.digi.selenium.app.DashBoard.Dashboard_Prepaid@221abac1]" name="terminateBrowser" is-config="true" duration-ms="0" started-at="2017-02-19T17:35:42Z" finished-at="2017-02-19T17:35:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- terminateBrowser -->
+      </class> <!-- com.digi.selenium.app.DashBoard.Dashboard_Prepaid -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

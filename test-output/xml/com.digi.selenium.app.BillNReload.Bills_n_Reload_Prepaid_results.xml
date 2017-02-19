@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestNG"
+           tests="2"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="40.970">
+  <properties />
+  
+  
+            <testcase name="validateAccountName" time="7.012" classname="com.digi.selenium.app.BillNReload.Bills_n_Reload_Prepaid" />
+                <testcase name="validateTableData" time="33.958" classname="com.digi.selenium.app.BillNReload.Bills_n_Reload_Prepaid" />
+      
+</testsuite>

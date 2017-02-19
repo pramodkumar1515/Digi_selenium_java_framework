@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Default test"
+           tests="2"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="128.434">
+  <properties />
+  
+  
+            <testcase name="searchTestNGInGoogle" time="66.260" classname="com.digi.selenium.util.TestNG" />
+                <testcase name="searchHCLInGoogle" time="62.174" classname="com.digi.selenium.util.TestNG" />
+      
+</testsuite>

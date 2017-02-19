@@ -1,0 +1,360 @@
+package com.digi.selenium.util.BillNReload;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.digi.selenium.util.common.AppConstants;
+import com.digi.selenium.util.common.PageNavigation;
+
+public class Bill_n_Reload_Util extends PageNavigation{
+	
+	//Target object[UI] - tooltip data on graph
+	private  List<String> targetTootips = new ArrayList<String>();	
+	//Target object[UI] - tabular data from table
+	private HashMap<String, List<String>> targetTabularData = new HashMap<String, List<String>>();
+	
+	//logger class
+	private  Logger log = Logger.getLogger(Bill_n_Reload_Util.class);
+	
+	//static or dynamic data flag
+	private  Properties sourceDataStatus = new Properties();
+
+	//static data 
+	private  Properties sourceStaticData = new Properties();
+	
+	/**
+	 * Setup the data for page run
+	 * 1.load config file
+	 * 2.setup the driver
+	 * 3.login with credentials
+	 * 4.navigation to destination page
+	 * 5.read the static source data
+	 */
+	protected  void setUp() {
+		loadSetUpConfig();
+		setUpDriver();
+		signInWithMSSIDN(PageNavigation.prop.getProperty(AppConstants.COUNTRY_PREFIX),
+						 PageNavigation.prop.getProperty(AppConstants.BILLS_N_RELOAD_POSTPAID_MSSIDN),
+						 PageNavigation.prop.getProperty(AppConstants.BILLS_N_RELOAD_POSTPAID_PASS));
+		movetoBillsReloads();
+		readSourceDataFiles();
+	}
+	
+ 	/**
+ 	 * Reads the Bills n Reload page source data
+ 	 * to get the dynamic/static data
+ 	 */
+     private void readSourceDataFiles() {
+    	String statusFileName = PageNavigation.prop.getProperty(AppConstants.CONFIG_FILES_LOCATION)
+    											   .concat(AppConstants.BILLSNRELOAD_DATASTATUSFILE_LOCATION);
+    	sourceDataStatus = loadFileData(statusFileName);
+    	
+    	String dataFileName = PageNavigation.prop.getProperty(AppConstants.CONFIG_FILES_LOCATION)
+												 .concat(AppConstants.BILLSNRELOAD_STATICDATAFILE_LOCATION);
+    	sourceStaticData =  loadFileData(dataFileName);
+    	
+    	//Test Read JSON data from Service 
+    	
+		/*String jsonData =	  	getOnlineServices().execute( "RETRIEVE_SUBSCRIBER_MSISDN",
+															  AppConstants.STAGEING_URL, new Object[] {
+															  "60109235782", "1"},new String[]{"","60109235782"});
+		String keyData = "SubscriberId";
+		Object resultFound = searchInJSONResult(jsonData, keyData);*/
+		
+		
+		System.out.println("Test Result Found : "+ "");
+    	/*System.out.println("Source Data Status :"+ sourceDataStatus);
+    	System.out.println("Source Static Data :"+ sourceStaticData);*/
+     }
+     
+     /**
+      * Get the static source data 
+      * @param String inputData
+      * @return String outputData
+      */
+     
+     protected String getSourceData(String inputData){
+    	 String returnData = null;
+    	 
+    	 if(sourceDataStatus.containsKey(inputData)){
+    		 returnData = findSourceData(inputData);
+    		 log.info("Success : Static Source data '"+ inputData + "' -->"+returnData );
+    		// System.out.println("Success : Static Source data '"+ inputData + "' -->"+returnData );
+    	 }else{
+    		 returnData= "Fail :" + inputData + " Not found in Status File" ;
+    		 log.error("Fail :" + inputData + " Not found in Status File");
+    	 }
+    	 
+    	 return returnData;
+     }
+     
+     /**
+      * read the static source data 
+      * @param inputData
+      * @return
+      */
+     private String findSourceData(String inputData){
+    	 String returnData = null;
+    	 String status = sourceDataStatus.getProperty(inputData);
+    	 if(status.equalsIgnoreCase(AppConstants.YES)){
+    		 returnData = sourceStaticData.getProperty(inputData);
+    	 }
+    	 return returnData;
+     }
+     
+    /**
+     * Get Target BillCycle Data 
+     */
+     protected void targetBillCycleData(){
+    	 Wait<WebDriver> wait= new WebDriverWait(getDriver(), 30);		
+ 		JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+ 		//Map<String, String> mapbill = new HashMap<String, String>();
+ 		jse.executeScript("window.scrollBy(0,350)", "");		 
+ 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[name()='svg']/*[name()='g'][6]/*[name()='g']")));	
+ 		//Working :get the stroke attribute to get the color value of graph
+ 		getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+ 		boolean breakIt = true;
+ 	    String rootNodeXPath = "//*[name()='svg']/*[name()='g'][13]" ;
+ 	    WebElement rootElement = getDriver().findElement(By.xpath(rootNodeXPath)) ;
+ 	    //System.out.println("WebElement got :" + rootElement);
+ 	    String childXPathRTroot = "./*[name()='g'][1]/*[name()='text']"; 
+ 	    List<WebElement> listChildElements = rootElement.findElements(By.xpath(childXPathRTroot));
+ 	    System.out.println("New ChildElements.size() : " + listChildElements.size());
+ 	    int eleListSize = listChildElements.size();
+  	   	//List <String> tooltipvaluelist = new ArrayList<String>();
+ 		
+ 		for(int j=0; j<eleListSize; j++){
+ 	    	int n = j+1;
+ 	    	String childNodePath = rootNodeXPath.concat("/*[name()='g'][1]/*[name()='text']").concat("[").concat(String.valueOf(n).concat("]"));
+ 	    	System.out.println("New ChidNodePath : '" +n+"' ->"+childNodePath );
+ 	    	//System.out.println("childMouseHouverNode : '" +n+"' ->"+childMouseHouverNode );
+ 	    	 while (true) {
+ 	     	    breakIt = true;
+ 	     	    try {
+ 	     	        // write your code here
+ 	     	    	WebElement rootElementSub = getDriver().findElement(By.xpath(childNodePath));
+ 	     	    	String billCycleData = rootElementSub.getText();
+ 	     	    	System.out.println("New billCycleData:" + billCycleData);
+ 	     	    	/*String svgAttributeD = rootElementSub.findElement(By.xpath(childNodePath)).getAttribute("d");
+ 	     	    	log.info("svgAttribute Stroke: " + svgAttribute);
+ 	     	    	log.info("svgAttribute D: " + svgAttributeD);
+ 	     	    	Actions builder=new Actions(getDriver());
+ 	     	    	 builder.moveToElement(getDriver().findElement(By.xpath(childMouseHouverNode))).perform();
+ 	     	    	log.info("Mouse hover Performed : '"+n+"'");
+ 	     	    	WebElement mouseHoverNodeElement = getDriver().findElement(By.xpath("//div[8]/div[1]/div[2]/div/div/div"));
+ 	     	    	log.info("MouseHover Object Found : '"+n+"'");
+ 	     	    	 
+ 	     	    	String toolTipText = mouseHoverNodeElement.getText();
+ 	     	    	log.info("toolTipText : " +toolTipText );
+ 	     	    	mapbill.put("tooltip"+n, toolTipText);
+ 	     	    	if(toolTipText.contains("Amount Paid"))
+ 	     	    	{
+ 	     	    	String[] tooltipvalue = (mapbill.get("tooltip"+n)).split(":");
+ 	     	    	//System.out.println(tooltipvalue[1].trim());
+ 	     	    	targetTootips.add(tooltipvalue[1].trim());
+ 	     	    	}
+ 	     	    	else
+ 	     	    	{
+ 		     	    	String[] tooltipvalue = (mapbill.get("tooltip"+n)).split("Amount Due:");
+ 		     	    	//System.out.println(tooltipvalue[1].substring(0, 5));
+ 		     	    	targetTootips.add(tooltipvalue[1].trim());     	    		
+ 	     	    		
+ 	     	    	}*/
+ 	     	   	    
+
+ 	     	    	getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+ 	     	        
+
+ 	     	    } catch (Exception e) {
+ 	     	        if (e.getMessage().contains("element is not attached")) {
+ 	     	        	//System.out.println("Error: Element 4 ");
+ 	     	            breakIt = false;
+ 	     	        }
+ 	         	}
+ 	     	    if (breakIt) {
+ 	     	        break;
+ 	     	    }
+ 	    	
+ 	    }//while loop ends
+ 		
+ 	  }//for loop ends
+     }
+     
+	/** Description: To read tooltip value from each bar
+	 * Parameters: Not required
+	 * Return: A list of string having  tooltip amounts 
+	 */	
+	protected void targetToolTipData()
+	{
+		Wait<WebDriver> wait= new WebDriverWait(getDriver(), 30);		
+		JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+		Map<String, String> mapbill = new HashMap<String, String>();
+		jse.executeScript("window.scrollBy(0,250)", "");		 
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[name()='svg']/*[name()='g'][6]/*[name()='g']")));	
+		//Working :get the stroke attribute to get the color value of graph
+		getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		boolean breakIt = true;
+	    String rootNodeXPath = "//*[name()='svg']/*[name()='g'][6]/*[name()='g']" ;
+	    WebElement rootElement = getDriver().findElement(By.xpath(rootNodeXPath)) ;
+	    //System.out.println("WebElement got :" + rootElement);
+	    String childXPathRTroot = "./*[name()='g']"; 
+	    List<WebElement> listChildElements = rootElement.findElements(By.xpath(childXPathRTroot));
+	    //System.out.println("listChildElements.size() : " + listChildElements.size());
+	    int eleListSize = listChildElements.size();
+ 	   	//List <String> tooltipvaluelist = new ArrayList<String>();
+		
+		for(int j=0; j<eleListSize; j++){
+	    	int n = j+1;
+	    	String childNodePath = rootNodeXPath.concat("/*[name()='g']").concat("[").concat(String.valueOf(n).concat("]").concat("/*[name()='path']"));
+	    	String childMouseHouverNode = rootNodeXPath.concat("/*[name()='g']").concat("[").concat(String.valueOf(n).concat("]"));
+	    	//System.out.println("ChidNodePath : '" +n+"' ->"+childNodePath );
+	    	//System.out.println("childMouseHouverNode : '" +n+"' ->"+childMouseHouverNode );
+	    	 while (true) {
+	     	    breakIt = true;
+	     	    try {
+	     	        // write your code here
+	     	    	WebElement rootElementSub = getDriver().findElement(By.xpath(childNodePath));
+	     	    	String svgAttribute = rootElementSub.getAttribute("stroke");
+	     	    	String svgAttributeD = rootElementSub.findElement(By.xpath(childNodePath)).getAttribute("d");
+	     	    	log.info("svgAttribute Stroke: " + svgAttribute);
+	     	    	log.info("svgAttribute D: " + svgAttributeD);
+	     	    	Actions builder=new Actions(getDriver());
+	     	    	 builder.moveToElement(getDriver().findElement(By.xpath(childMouseHouverNode))).perform();
+	     	    	log.info("Mouse hover Performed : '"+n+"'");
+	     	    	WebElement mouseHoverNodeElement = getDriver().findElement(By.xpath("//div[8]/div[1]/div[2]/div/div/div"));
+	     	    	log.info("MouseHover Object Found : '"+n+"'");
+	     	    	 
+	     	    	String toolTipText = mouseHoverNodeElement.getText();
+	     	    	log.info("toolTipText : " +toolTipText );
+	     	    	mapbill.put("tooltip"+n, toolTipText);
+	     	    	if(toolTipText.contains("Amount Paid"))
+	     	    	{
+	     	    	String[] tooltipvalue = (mapbill.get("tooltip"+n)).split(":");
+	     	    	//System.out.println(tooltipvalue[1].trim());
+	     	    	targetTootips.add(tooltipvalue[1].trim());
+	     	    	}
+	     	    	else
+	     	    	{
+		     	    	String[] tooltipvalue = (mapbill.get("tooltip"+n)).split("Amount Due:");
+		     	    	//System.out.println(tooltipvalue[1].substring(0, 5));
+		     	    	targetTootips.add(tooltipvalue[1].trim());     	    		
+	     	    		
+	     	    	}
+	     	   	    
+
+	     	    	getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	     	        
+
+	     	    } catch (Exception e) {
+	     	        if (e.getMessage().contains("element is not attached")) {
+	     	        	//System.out.println("Error: Element 4 ");
+	     	            breakIt = false;
+	     	        }
+	         	}
+	     	    if (breakIt) {
+	     	        break;
+	     	    }
+	    	
+	    }//while loop ends
+		
+	  }//for loop ends
+		
+	}
+
+/* Description: To read tabular value on bills and reloads page
+ * Parameters: Not required
+ * Return: Hashmap of <string , list of strings> having  all the values in table
+ */	
+	protected void  targetTabularData() 
+	{
+
+		//HashMap<String, List<String>> getValues = new HashMap<String, List<String>>();
+		List<String> billCyclelist = new ArrayList<String>();
+		List<String> billAmountlist = new ArrayList<String>();
+		List<String> amountPaidlist = new ArrayList<String>();
+		WebElement svg = getDriver().findElement(By.cssSelector("svg"));
+		List<WebElement> billingCycle = getDriver().findElements(By.cssSelector(".tablet-eight-twelfths.mobile-eleven-twelfths"));
+		List<WebElement> outertext = svg.findElements(By.cssSelector("text"));		
+        List<String> graphperiod = new ArrayList<String>();
+		for(WebElement texts : outertext)
+		                    {
+		                        String textcollection = texts.getText();
+		                        graphperiod.add(textcollection);
+		                       
+		                    }
+    log.info("No of graphs shown are : " + billingCycle.size());
+    for (int j=billingCycle.size(), i = ((j*2)-1) ; j>=1;i=i-2,j--)
+    	
+    {
+    	//fetching values from the table
+    	String billCycle = getDriver().findElement(By.xpath("//*[@id='details-table']/tbody/"+"tr["+i+"]/td[1]")).getText();
+    	String billAmount = getDriver().findElement(By.xpath("//*[@id='details-table']/tbody/"+"tr["+i+"]/td[5]")).getText();
+    	String amountPaid = getDriver().findElement(By.xpath("//*[@id='details-table']/tbody/"+"tr["+i+"]/td[6]")).getText();
+    	//System.out.println("bill amount : "+billAmount + " ,amountPaid :" + amountPaid + " ,for billing cycle :" +billCycle );
+    	
+		// create list  and store values
+    	billCyclelist.add(billCycle);
+    	billAmountlist.add(billAmount);   			
+    	amountPaidlist.add(amountPaid);
+		     	
+    }
+	// put values into map
+    targetTabularData.put("billCycle", billCyclelist); 
+    targetTabularData.put("billAmount", billAmountlist);
+    targetTabularData.put("AmountPaid", amountPaidlist); 	
+	}
+
+
+	
+/* Description: Navigating to bills and reload Page
+* Parameters:  mssidn ,Password 
+* Return: No return
+*/		
+	protected void movetoBillsReloads()
+	{
+	    waitForPageLoad(60);
+	    handleLink_ByText("MyDigi");
+	    waitForPageLoad(30);
+		handleLink_ByText("Bills & Reloads");
+	}
+	
+/** Get the TabularData for for TargetObject 
+ * 
+ * @return HashMap<String, List<String>>
+ */
+	protected HashMap<String, List<String>> getTargetTabularData() {
+		return targetTabularData;
+	}
+
+/** Get the tooltip data for TargetObject
+* 
+* @return List<String> 
+*/
+	protected List<String> getTargetTootips() {
+		return targetTootips;
+	}
+	
+	
+	/*public static void main(String[] args) throws Exception{
+		Bill_n_Reload_Util bru = new Bill_n_Reload_Util();
+		
+		bru.setUp();
+	}*/
+	
+	
+}

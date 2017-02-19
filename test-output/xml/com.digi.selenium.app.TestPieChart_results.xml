@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestNG"
+           tests="1"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="11.289">
+  <properties />
+  
+  
+            <testcase name="pieChart" time="11.289" classname="com.digi.selenium.app.TestPieChart" />
+      
+</testsuite>

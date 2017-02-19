@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Digi_TestSuite]">
+  <listeners>
+    <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+    <listener class-name="com.digi.selenium.util.common.DynamicallyRunTestCases"/>
+    <listener class-name="com.digi.selenium.util.common.TestListener"/>
+    <listener class-name="com.digi.selenium.util.common.ExecutionListener"/>
+    <listener class-name="com.digi.selenium.util.common.GroupRunnerListner"/>
+  </listeners>
+  <test name="TestNG(failed)">
+    <classes>
+      <class name="com.digi.selenium.app.Stores_Orders.Store_Orders_Postpaid">
+        <methods>
+          <include name="validateStoreNordersEmail_id_Postpaid"/>
+          <include name="initDriver"/>
+          <include name="validateStoreNordersOrderNo_Postpaid"/>
+        </methods>
+      </class> <!-- com.digi.selenium.app.Stores_Orders.Store_Orders_Postpaid -->
+    </classes>
+  </test> <!-- TestNG(failed) -->
+</suite> <!-- Failed suite [Digi_TestSuite] -->

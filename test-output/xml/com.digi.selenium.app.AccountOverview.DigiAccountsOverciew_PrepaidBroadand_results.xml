@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestNG"
+           tests="4"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="0.903">
+  <properties />
+  
+  
+            <testcase name="validateBalance" time="0.071" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_PrepaidBroadand" />
+                <testcase name="validateAccountNo" time="0.689" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_PrepaidBroadand" />
+                <testcase name="validateMsisdn" time="0.074" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_PrepaidBroadand" />
+                <testcase name="validateAccountName" time="0.069" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_PrepaidBroadand" />
+      
+</testsuite>

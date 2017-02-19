@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestNG"
+           tests="2"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="12.884">
+  <properties />
+  
+  
+            <testcase name="supportSite" time="5.348" classname="com.digi.selenium.util.FirstSampleTestNG" />
+                <testcase name="registerSite" time="7.536" classname="com.digi.selenium.util.FirstSampleTestNG" />
+      
+</testsuite>

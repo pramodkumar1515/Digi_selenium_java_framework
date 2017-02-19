@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestNG"
+           tests="4"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="0.641">
+  <properties />
+  
+  
+            <testcase name="ValidateMSISDN" time="0.074" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_Postpaid" />
+                <testcase name="ValidateAccountName" time="0.076" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_Postpaid" />
+                <testcase name="ValidateAccountNo" time="0.418" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_Postpaid" />
+                <testcase name="ValidateUnbilledAmount" time="0.073" classname="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_Postpaid" />
+      
+</testsuite>

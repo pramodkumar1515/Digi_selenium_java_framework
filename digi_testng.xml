@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+<suite name="Digi_TestSuite" >
+  <listeners>
+      <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+       <listener class-name="com.digi.selenium.util.common.DynamicallyRunTestCases" /> 
+      <listener class-name="com.digi.selenium.util.common.TestListener" /> 
+     <listener class-name="com.digi.selenium.util.common.ExecutionListener" /> 
+      <listener class-name="com.digi.selenium.util.common.GroupRunnerListner" />
+      
+      
+  </listeners>
+
+   <test name="TestNG">
+      	
+        <classes> 
+       
+      		 <!-- Add the TestClasses -->
+      		 
+           <class name="com.digi.selenium.app.Stores_Orders.Store_Orders_Prepaid" />
+           <class name="com.digi.selenium.app.Stores_Orders.Store_Orders_Postpaid" /> 
+           <class name="com.digi.selenium.app.BillNReload.Bills_n_Reload_Postpaid" />
+           <class name="com.digi.selenium.app.BillNReload.Bills_n_Reload_Prepaid" />
+           <class name="com.digi.selenium.app.BillNReload.Bill_n_Reload_Postpaid_Broadband" />
+           <class name="com.digi.selenium.app.BillNReload.Bill_n_Reload_Prepaid_Broadband" />
+           
+           <!-- Bills-n-Reload 
+           
+           <class name="com.digi.selenium.app.BillNReload.Bills_n_Reload_Postpaid" />
+           <class name="com.digi.selenium.app.BillNReload.Bills_n_Reload_Prepaid" />
+           <class name="com.digi.selenium.app.BillNReload.Bill_n_Reload_Postpaid_Broadband" />
+           <class name="com.digi.selenium.app.BillNReload.Bill_n_Reload_Prepaid_Broadband" />     
+           -->
+           
+           
+            <!-- Accounts OverView 
+		
+		     <class name="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_Postpaid" />   
+	         <class name="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_PostpaidBroadand" /> 
+	         <class name="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_Prepaid" /> 
+	         <class name="com.digi.selenium.app.AccountOverview.DigiAccountsOverciew_PrepaidBroadand" />
+	         -->
+	          
+	         <!-- DashBoard 
+	         
+	         <class name="com.digi.selenium.app.DashBoard.Dashboard_Postpaid_BroadBand_Stg" />   
+	         <class name="com.digi.selenium.app.DashBoard.Dashboard_Postpaid_Stg" /> 
+	         <class name="com.digi.selenium.app.DashBoard.Dashboard_Prepaid_BroadBand_Stg" />
+	         <class name="com.digi.selenium.app.DashBoard.Dashboard_Prepaid_Stg" />-->
+		</classes>
+
+		
+		 
+         
+        
+   </test>
+
+</suite>
